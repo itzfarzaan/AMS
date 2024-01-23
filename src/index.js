@@ -40,7 +40,7 @@ app.post("/login", async (req, res) => {
     const isPasswordMatch = req.body.password === check.password.toString();
  
     if (isPasswordMatch) {
-      res.render("home");
+      res.redirect(`/home/${req.body.username}`);
     } else {
       res.send("wrong password");
     }
@@ -73,6 +73,31 @@ app.post("/login2", async (req, res) => {
   }
 
 });
+
+
+app.get("/home/:rollNumber", async (req, res) => {
+  try {
+    // Fetch student data from the database using the rollNumber
+    const studentData = await collection.findOne({ username: req.params.rollNumber });
+
+    // Render the student dashboard template with the retrieved data
+    res.render("home", {
+      studentName: studentData.name,
+      studentRollNumber: studentData.username,
+      studentClass: studentData.class,
+      // attendancePercentage: calculateAttendancePercentage(studentData.attendance),
+    });
+  } catch (error) {
+    console.error("Error fetching student data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+
+
+
+
 
 
 const port = 5500;

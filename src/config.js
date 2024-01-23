@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const connect = mongoose.connect("mongodb+srv://abdulrahman220803:rahman_113@cluster0.futkf2v.mongodb.net/Cluster0",{});
+// const connect = mongoose.connect("mongodb+srv://farzaan:farzaan@cluster0.3pmzznt.mongodb.net/?retryWrites=true&w=majority",{});
+
 
 // check connection 
 connect.then(() => {
-  console.log("Database connnected Successfully");
+  console.log("Database connected Successfully");
 })
   .catch(() => {
-    console.log("Database cannot be connected");
+    console.log("Database could not be connected");
   });
 
 //Schema
